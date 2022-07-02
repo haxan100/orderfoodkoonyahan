@@ -225,9 +225,17 @@ $bu = base_url();
 											},
 										})
 										.done(function(res) {
+											if(res.status){
+												var w  = "<?= $bu; ?>Cart/Selesai/?id=" + res.id;
+													window.location = w;
+											}else{
+												Swal.fire(
+												  'Maaf',
+												  res.msg,
+												  'error'
+												)
+											}
 
-										var w  = "<?= $bu; ?>Cart/Selesai/?id=" + res.id;
-											window.location = w;
 										})
 										.fail(function(error) {
 											alert("eror!")

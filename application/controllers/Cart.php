@@ -170,14 +170,21 @@ public function updateCart()
 }
 public function konfirmasi()
 {
-		// $sess =  $this->session->userdata('user_session');
-		// var_dump($sess== null);
-		// die;
+	// var_dump($_POST);die;
 	$nama = $this->input->post('nama');
 	$pilihtempat = $this->input->post('pilihtempat');
 	$meja_id = $this->input->post('meja_id');
 	$totalharga = $this->input->post('totalharga');
 	$id_user = $this->session->userdata('id_kasir');
+	if($totalharga==0||$totalharga==''||empty($totalharga)){
+		$data = array(
+			'status' => false,
+			'msg' => 'Maaf, Data Tidak Valid, Coba Lagi Nanti',
+			'id'=> 0,
+		);
+		echo json_encode($data);
+		die();
+	}
 
 	$now = date('Y-m-d H:i:s');
 
@@ -231,9 +238,6 @@ public function konfirmasi()
 		);
 		echo json_encode($data);
 		die();
-
-
-
 }
 function generateRandomString($length = 10)
 	{
