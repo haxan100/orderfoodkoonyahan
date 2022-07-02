@@ -1,8 +1,9 @@
-<?php 
-        
-defined('BASEPATH') OR exit('No direct script access allowed');
-        
-class Admin extends CI_Controller {
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class Admin extends CI_Controller
+{
 	public function __construct()
 	{
 		parent::__construct();
@@ -13,29 +14,29 @@ class Admin extends CI_Controller {
 		// $this->load->model('SekolahModel');
 		$this->load->helper('url');
 	}
-	
-    function cekLogin()
+
+	function cekLogin()
 	{
 		if (!$this->isLoggedInAdmin()) {
-		$this->session->set_flashdata(
-			'notifikasi',
-			array(
-			'alert' => 'alert-danger',
-			'message' => 'Silahkan Login terlebih dahulu.',
-			)
-		);
-		redirect('LoginAdmin');
+			$this->session->set_flashdata(
+				'notifikasi',
+				array(
+					'alert' => 'alert-danger',
+					'message' => 'Silahkan Login terlebih dahulu.',
+				)
+			);
+			redirect('LoginAdmin');
 		}
 	}
 	public function index()
 	{
-			$this->cekLogin();
+		$this->cekLogin();
 
-			$obj['ci'] = $this;
-			$obj['content'] =  "admin/blank";
+		$obj['ci'] = $this;
+		$obj['content'] =  "admin/blank";
 
-			$this->load->view('admin/templates/index', $obj);
-	} 
+		$this->load->view('admin/templates/index', $obj);
+	}
 	public function master_admin()
 	{
 		$id_admin = $this->session->userdata('id_admin');
@@ -57,18 +58,16 @@ class Admin extends CI_Controller {
 		$id_admin = $this->session->userdata('id_admin');
 		$role = $this->AdminModel->getRole($id_admin, 'master_menu')->r;
 		if ($role == 1) {
-			
-		$obj['listKategori'] = $this->MenuModel->getKategori();
-		$obj['ci'] = $this;
-		$obj['content'] = 'admin/master_item';
-		$this->load->view('admin/templates/index', $obj);
 
+			$obj['listKategori'] = $this->MenuModel->getKategori();
+			$obj['ci'] = $this;
+			$obj['content'] = 'admin/master_item';
+			$this->load->view('admin/templates/index', $obj);
 		} elseif ($role == 0) {
 			$obj['ci'] = $this;
 			$obj['content'] =  "admin/blank";
 			$this->load->view('admin/templates/index', $obj);
 		}
-
 	}
 	public function tambah_menu_proses()
 	{
@@ -90,11 +89,11 @@ class Admin extends CI_Controller {
 		if ($harga == null) {
 			$status = false;
 			$message = "Harap Masukan Harga!";
-		}		
+		}
 		if ($stok == null) {
 			$status = false;
 			$message = "Harap Masukan Stok!";
-		}		
+		}
 
 		$cekFoto = empty($_FILES['foto']['name'][0]) || $_FILES['foto']['name'][0] == '';
 		if (!$cekFoto) {
@@ -137,13 +136,13 @@ class Admin extends CI_Controller {
 						'stok' => $stok,
 						'created_at' => date("Y-m-d H:i:s"),
 					);
-					$this->SemuaModel->Tambah('menu',$in);					
-					$message = "Berhasil Menambah  #1";					
+					$this->SemuaModel->Tambah('menu', $in);
+					$message = "Berhasil Menambah  #1";
 					$id_admin = $this->session->userdata('id_admin');
 					$aksi = 'Tambah menu ' . $nama;
 					$id_kategori = 7;
 					$this->AdminModel->log($id_admin, $id_kategori, $aksi);
-				}else{
+				} else {
 					$message = "Gagal!  #1";
 				}
 			}
@@ -160,14 +159,14 @@ class Admin extends CI_Controller {
 	public function hapusMenu()
 	{
 		$id_menu = $this->input->post('id_menu', TRUE);
-		$data = $this->SemuaModel->getDataById('menu','id_menu',$id_menu);
+		$data = $this->SemuaModel->getDataById('menu', 'id_menu', $id_menu);
 		$status = false;
 
 		$message = 'Gagal menghapus Data!';
 		if (count($data) == 0) {
 			$message .= '<br>Tidak terdapat Data yang dimaksud.';
 		} else {
-			$this->SemuaModel->HapusData('menu','id_menu',$id_menu);
+			$this->SemuaModel->HapusData('menu', 'id_menu', $id_menu);
 
 			$id_admin = $this->session->userdata('id_admin');
 			$aksi = 'Hapus menu ' . $data[0]->nama_menu;
@@ -199,7 +198,7 @@ class Admin extends CI_Controller {
 			'stok' => $stok,
 		);
 		$maxFoto = 5;
-		$getNamaFotoOld = $this->SemuaModel->getDataById('menu','id_menu',$id_menu)[0]->foto;
+		$getNamaFotoOld = $this->SemuaModel->getDataById('menu', 'id_menu', $id_menu)[0]->foto;
 		if (empty($nama)) {
 			$status = false;
 			$errorInputs[] = array('#nama', 'Silahkan Isi Nama');
@@ -212,7 +211,7 @@ class Admin extends CI_Controller {
 
 		if ($status) {
 
-			if ($this->SemuaModel->EditData('menu','id_menu',$in, $id_menu)) {
+			if ($this->SemuaModel->EditData('menu', 'id_menu', $in, $id_menu)) {
 
 				$message = "Berhasil Mengubah Data #1";
 				$cekFoto = empty($_FILES['foto']['name'][0]) || $_FILES['foto']['name'][0] == '';
@@ -246,7 +245,7 @@ class Admin extends CI_Controller {
 						$foto = array(
 							'foto' => $fileName,
 						);
-						$this->SemuaModel->EditData('menu','id_menu',$foto, $id_menu);
+						$this->SemuaModel->EditData('menu', 'id_menu', $foto, $id_menu);
 
 						$id_admin = $this->session->userdata('id_admin');
 						$aksi = 'Edit menu ' . $nama;
@@ -282,8 +281,6 @@ class Admin extends CI_Controller {
 			$obj['content'] =  "admin/blank";
 			$this->load->view('admin/templates/index', $obj);
 		}
-
-		
 	}
 	public function ubah_kasir_proses()
 	{
@@ -359,7 +356,7 @@ class Admin extends CI_Controller {
 			$message = "Harap Masukan Password!";
 			// die("sss");
 		}
-		if($status){
+		if ($status) {
 			$status = true;
 
 			$in = array(
@@ -377,11 +374,9 @@ class Admin extends CI_Controller {
 			$this->AdminModel->log($id_admin, $id_kategori, $aksi);
 
 			$message = "Berhasil Menambah  #1";
-		}else{
+		} else {
 			$status = false;
 			$message = "Gagal Menambah Data";
-
-
 		}
 
 
@@ -466,7 +461,6 @@ class Admin extends CI_Controller {
 			$aksi = 'Tambah Admin ' . $nama;
 			$id_kategori = 1;
 			$this->AdminModel->log($id_admin, $id_kategori, $aksi);
-
 		} else {
 			$status = false;
 			$message = "Gagal Menambah Data";
@@ -523,7 +517,6 @@ class Admin extends CI_Controller {
 				$aksi = 'Edit Admin ' . $nama;
 				$id_kategori = 2;
 				$this->AdminModel->log($id_admin, $id_kategori, $aksi);
-
 			}
 		} else {
 			$status = false;
@@ -552,7 +545,7 @@ class Admin extends CI_Controller {
 			$this->SemuaModel->HapusData('admin', 'id_admin', $id_admin);
 
 			$id_admin = $this->session->userdata('id_admin');
-			$aksi = 'Hapus Admin ' .  $data[0]->nama_admin ;
+			$aksi = 'Hapus Admin ' .  $data[0]->nama_admin;
 			$id_kategori = 3;
 			$this->AdminModel->log($id_admin, $id_kategori, $aksi);
 
@@ -578,8 +571,6 @@ class Admin extends CI_Controller {
 			$obj['content'] =  "admin/blank";
 			$this->load->view('admin/templates/index', $obj);
 		}
-
-		
 	}
 	public function ubah_setting_proses()
 	{
@@ -605,7 +596,6 @@ class Admin extends CI_Controller {
 				$status = true;
 
 				$message = "Berhasil Mengubah Data #1";
-				
 			}
 		} else {
 			$status = false;
@@ -621,25 +611,25 @@ class Admin extends CI_Controller {
 		));
 	}
 	public function isLoggedInAdmin()
-    {	
+	{
 		// var_dump($_SESSION);die;
-		   // Cek apakah terdapat session "admin_session"
-        if ($this->session->userdata('admin_session'))
-            return true; // sudah login
-        else
-            return false; // belum login
-    }
+		// Cek apakah terdapat session "admin_session"
+		if ($this->session->userdata('admin_session'))
+			return true; // sudah login
+		else
+			return false; // belum login
+	}
 	public function logout()
 	{
 		$id_admin = $_SESSION['id_admin'];
 		$CI = &get_instance();
 		$CI->load->library('session');
-		$CI->session->sess_destroy();		
+		$CI->session->sess_destroy();
 		$pesan = "Berhasil Keluar";
 		$eror = false;
 		// $aksi = 'Log Out';
-        // $id_kategori = 82;
-        // $this->AdminModel->log($id_admin, $id_kategori, $aksi);
+		// $id_kategori = 82;
+		// $this->AdminModel->log($id_admin, $id_kategori, $aksi);
 		redirect('LoginAdmin');
 		// return $this->login;
 		echo json_encode(array(
@@ -663,8 +653,6 @@ class Admin extends CI_Controller {
 			$obj['content'] =  "admin/blank";
 			$this->load->view('admin/templates/index', $obj);
 		}
-
-		
 	}
 	public function master_role()
 	{
@@ -681,8 +669,8 @@ class Admin extends CI_Controller {
 			$obj['content'] =  "admin/blank";
 			$this->load->view('admin/templates/index', $obj);
 		}
-		
-		
+
+
 		# code...
 	}
 	public function tambah_role()
@@ -704,7 +692,7 @@ class Admin extends CI_Controller {
 		// var_dump($in);die();
 		$noRoleSelected = true;
 		if (
-			$master_admin == 1 ||  $master_kasir ==1 || $master_menu==1 || $master_transaksi == 1 || $histori ==1 || $setting 
+			$master_admin == 1 ||  $master_kasir == 1 || $master_menu == 1 || $master_transaksi == 1 || $histori == 1 || $setting
 		) $noRoleSelected = false;
 		else if ($noRoleSelected) {
 			$status = false;
@@ -724,7 +712,7 @@ class Admin extends CI_Controller {
 
 			);
 			if ($this->AdminModel->tambah_new_admin_role($admin_role)) {
-				$status = true ;
+				$status = true;
 				$message = 'Berhasil Menambah Role ';
 				$id_admin = $this->session->userdata('id_admin');
 				$aksi = 'Tambah Role ' . $nama;
@@ -761,7 +749,7 @@ class Admin extends CI_Controller {
 		$noRoleSelected = true;
 		if (
 			$data_admin == 1 || $data_kasir == 1 || $master_menu == 1
-			|| $master_transaksi  == 1 || $Setting==1 || $Histori == 1 
+			|| $master_transaksi  == 1 || $Setting == 1 || $Histori == 1
 		) $noRoleSelected = false;
 		else if ($noRoleSelected) {
 			$status = false;
@@ -795,7 +783,6 @@ class Admin extends CI_Controller {
 			} else {
 				$message = 'Gagal ';
 				$status = false;
-
 			}
 		} else {
 			$message = 'Username Sudah Ada! ';
@@ -854,8 +841,8 @@ class Admin extends CI_Controller {
 			$obj['content'] =  "admin/blank";
 			$this->load->view('admin/templates/index', $obj);
 		}
-	
-		
+
+
 		# code...
 	}
 	public function master_slider()
@@ -875,13 +862,12 @@ class Admin extends CI_Controller {
 	}
 	public function getFotoSlider()
 	{
-		$id= $this->input->post('id');
+		$id = $this->input->post('id');
 		$data = $this->SemuaModel->getFotoSliderById($id);
 
 		echo json_encode(array(
 			'data' => $data,
 		));
-		
 	}
 	public function ubah_slider_proses()
 	{
@@ -890,7 +876,7 @@ class Admin extends CI_Controller {
 		$message = 'Gagal mengedit data !<br>Silahkan lengkapi data yang diperlukan.';
 		$errorInputs = array();
 		$status = true;
-	
+
 		$_FILES['f']['name']     = $_FILES['isi']['name'];
 		$_FILES['f']['type']     = $_FILES['isi']['type'];
 		$_FILES['f']['tmp_name'] = $_FILES['isi']['tmp_name'];
@@ -911,7 +897,7 @@ class Admin extends CI_Controller {
 			$errorUpload = $this->upload->display_errors() . '<br>';
 			$status = false;
 			$errorInputs[] = array('#foto', $errorUpload);
-		}else{
+		} else {
 			$fileName = $this->upload->data()["file_name"];
 			$foto = array(
 				'foto' => $fileName,
@@ -923,9 +909,8 @@ class Admin extends CI_Controller {
 				$status = false;
 				$message = "Gagal Mengubah Data #1";
 			}
-
 		}
-			
+
 
 
 
@@ -935,9 +920,21 @@ class Admin extends CI_Controller {
 			'errorInputs' => $errorInputs
 		));
 	}
+	public function master_kategori()
+	{
+		$this->cekLogin();
+		$id_admin = $this->session->userdata('id_admin');
+		$role = $this->AdminModel->getRole($id_admin, 'master_kategori')->r;
+		if ($role == 1) {
 
+			$obj['listKategori'] = $this->MenuModel->getKategori();
+			$obj['ci'] = $this;
+			$obj['content'] = 'admin/master_kategori';
+			$this->load->view('admin/templates/index', $obj);
+		} elseif ($role == 0) {
+			$obj['ci'] = $this;
+			$obj['content'] =  "admin/blank";
+			$this->load->view('admin/templates/index', $obj);
+		}
+	}
 }
-        
-    /* End of file  Admin.php */
-        
-                            

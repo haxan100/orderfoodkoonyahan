@@ -2,7 +2,7 @@
 $bu = base_url();
 ?>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.19/sweetalert2.min.js" integrity="sha512-8EbzTdONoihxrKJqQUk1W6Z++PXPHexYlmSfizYg7eUqz8NgScujWLqqSdni6SRxx8wS4Z9CQu0eakmPLtq0HA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <body class="woocommerce-cart">
 	<div id="page" class="hfeed site">
 
@@ -123,8 +123,44 @@ $bu = base_url();
 												event.preventDefault();
 												var rowid = $(this).data('rowid');
 												var id = $(this).data('id');
-												// console.log(id)
-												// return false
+												Swal.fire({
+												  title: 'Anda Yakin ?',												
+												  text: 'Item ini akan di Hapus !',
+												  icon: 'question',
+												  showCancelButton: true,
+												  confirmButtonColor: '#3085d6',
+												  cancelButtonColor: '#d33',
+													confirmButtonText: 'Ya',
+													cancelButtonText: 'Batal',
+												}).then((result) => {
+												  if (result.isConfirmed) {
+													$.ajax({
+																url: '<?= $bu; ?>/Cart/hapusSatuKeranjang',
+																type: "POST",
+																dataType: 'json',
+																data: {
+																	id
+																},
+															}).done(function(res) {
+																Swal.fire(
+																  'Success',
+																  res.msg,
+																  'success'
+																)
+																if (res.status) {
+																	setTimeout(() => {
+																		location.reload();
+																	}, 1000);
+																} else {
+																	alert("Gagal!")
+																}
+															})
+															.fail(function(error) {
+																console.log(error.responseText);
+															});
+												  }
+												})
+												return false
 												swal({
 													title: 'Anda Yakin ?',
 													text: 'Item ini akan di Hapus !',
@@ -144,29 +180,16 @@ $bu = base_url();
 																data: {
 																	id
 																},
-															})
-															.done(function(res) {
+															}).done(function(res) {
 																console.log(res)
 																console.log(res.status)
 																// return false
 																if (res.status) {
-																	// 	swal({
-																	// 	title: 'Anda Yakin ?',
-																	// 	text: 'Item ini akan di Hapus !',
-																	// 	type: 'warning',
-																	// 	showCancelButton: true,
-																	// 	confirmButtonColor: '#3085d6',
-																	// 	cancelButtonColor: '#d33',
-																	// 	confirmButtonText: 'Ya',
-																	// 	cancelButtonText: 'Batal',
-																	// 	closeOnConfirm: true
-																	// });
 																	setTimeout(() => {
 																		location.reload();
 																	}, 1000);
 																} else {
 																	alert("Gagal!")
-
 																}
 															})
 															.fail(function(error) {

@@ -52,10 +52,13 @@
 
             									<li><a href="<?= $bu ?>/Admin/master_kasir">Master Kasir</a></li>
             								<?php 	}
+
 											if ($role->master_menu == 1) {
 											?>
+            									<!-- <li><a href="<?= $bu ?>/Admin/master_kategori">Master Kategori</a></li> -->
             									<li><a href="<?= $bu ?>/Admin/master_item">Master Item</a></li>
             								<?php 	}
+
 											if ($role->master_transaksi == 1) {
 											?>
             									<li><a href="<?= $bu ?>/Admin/master_transaksi">Master Transaksi</a></li>
