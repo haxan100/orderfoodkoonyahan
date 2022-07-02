@@ -73,6 +73,7 @@ class Admin extends CI_Controller {
 	public function tambah_menu_proses()
 	{
 		$nama = $this->input->post('nama', TRUE);
+		$stok = $this->input->post('stok', TRUE);
 		$id_kategori = $this->input->post('id_kategori', TRUE);
 		$harga = $this->input->post('harga', TRUE);
 		// var_dump($_FILES);die;
@@ -81,17 +82,18 @@ class Admin extends CI_Controller {
 		if ($nama == null) {
 			$status = false;
 			$message = "Harap Masukan Nama!";
-			// die("sss");
 		}
 		if ($id_kategori == null) {
 			$status = false;
 			$message = "Harap Pilih Kategori!";
-			// die("sss");
 		}
 		if ($harga == null) {
 			$status = false;
 			$message = "Harap Masukan Harga!";
-			// die("sss");
+		}		
+		if ($stok == null) {
+			$status = false;
+			$message = "Harap Masukan Stok!";
 		}		
 
 		$cekFoto = empty($_FILES['foto']['name'][0]) || $_FILES['foto']['name'][0] == '';
@@ -132,18 +134,16 @@ class Admin extends CI_Controller {
 						'nama_menu' => $nama,
 						'id_kategori' => $id_kategori,
 						'harga' => $harga,
+						'stok' => $stok,
 						'created_at' => date("Y-m-d H:i:s"),
 					);
-					$this->SemuaModel->Tambah('menu',$in);
-					
+					$this->SemuaModel->Tambah('menu',$in);					
 					$message = "Berhasil Menambah  #1";					
 					$id_admin = $this->session->userdata('id_admin');
 					$aksi = 'Tambah menu ' . $nama;
 					$id_kategori = 7;
 					$this->AdminModel->log($id_admin, $id_kategori, $aksi);
-
 				}else{
-
 					$message = "Gagal!  #1";
 				}
 			}
@@ -156,10 +156,6 @@ class Admin extends CI_Controller {
 			'status' => $status,
 			'message' => $message,
 		));
-
-
-
-		# code...
 	}
 	public function hapusMenu()
 	{
@@ -188,11 +184,10 @@ class Admin extends CI_Controller {
 	public function ubah_menu_proses()
 	{
 		$id_menu = $this->input->post('id_menu', TRUE);
+		$stok = $this->input->post('stok', TRUE);
 		$nama = $this->input->post('nama', TRUE);
 		$id_kategori = $this->input->post('id_kategori', TRUE);
 		$harga = $this->input->post('harga', TRUE);
-
-
 		$message = 'Gagal mengedit data !<br>Silahkan lengkapi data yang diperlukan.';
 		$errorInputs = array();
 		$status = true;
@@ -201,12 +196,10 @@ class Admin extends CI_Controller {
 			'nama_menu' => $nama,
 			'id_kategori' => $id_kategori,
 			'harga' => $harga,
+			'stok' => $stok,
 		);
-		// var_dump($in);die();
-
 		$maxFoto = 5;
 		$getNamaFotoOld = $this->SemuaModel->getDataById('menu','id_menu',$id_menu)[0]->foto;
-		// var_dump($getNamaFotoOld);die;
 		if (empty($nama)) {
 			$status = false;
 			$errorInputs[] = array('#nama', 'Silahkan Isi Nama');

@@ -13,8 +13,7 @@
 		</div>
 		<div class="x_content">
 			<div class="row">
-				<div class="col-sm-12">
-					
+				<div class="col-sm-12">					
 				<select id="dt_filter_kategori" name="dt_filter_kategori" class="btn btn-primary m-t-18 btn-info waves-effect waves-light">
 					<option value="default" selected >Pilih Kategori</option>
 					<?php
@@ -36,6 +35,7 @@
 									<th>Nama Menu</th>
 									<th>Kategori</th>
 									<th>Harga</th>
+									<th>Stok</th>
 									<th>Foto</th>
 									<th>Aksi</th>
 								</tr>
@@ -70,8 +70,6 @@
 									<br />
 									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 										<div class="item form-group">
-											<!-- <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Id Menu <span class="required">*</span>
-											</label> -->
 											<div class="col-md-6 col-sm-6 ">
 												<input type="hidden" id="id_menu" name="id_menu" class="form-control " placeholder="Isikan Nama" readonly type="text" class="form-control">
 
@@ -116,6 +114,15 @@
 										</div>
 
 										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Stok <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<input id="stok" name="stok" class="form-control " placeholder="Stok" type="number" class="form-control">
+
+											</div>
+										</div>
+
+										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Foto<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
@@ -148,30 +155,29 @@
 	document.addEventListener("DOMContentLoaded", function(event) {
 		$('#dt_filter_kategori').on('change', function() {
 			datatable.ajax.reload();
-		}); // belum
-
-		// $('#modal-detail').modal('show');
+		});
+		
 		var bu = '<?= base_url(); ?>';
 		var url_form_ubah = bu + 'Admin/ubah_menu_proses';
 		var url_form_tambah = bu + 'Admin/tambah_menu_proses';
 
 		$('body').on('click', '.btn_edit', function() {
 			url_form = url_form_ubah;
-			// console.log(url_form);
 			$('#tambah_act').hide();
-			// $("#kode_wali").removeAttr('readonly');
 			$("#id_menu").prop("readonly", true);
 
 			var id_menu = $(this).data('id_menu');
 			var nama_menu = $(this).data('nama_menu');
 			var id_kategori = $(this).data('id_kategori');
 			var harga = $(this).data('harga');
+			var stok = $(this).data('stok');
 			var foto = $(this).data('foto');
 
 			$('#id_menu').val(id_menu);
 			$('#nama').val(nama_menu);
 			$('#id_kategori').val(id_kategori);
 			$('#harga').val(harga);
+			$('#stok').val(stok);
 
 			$('#image').prop('src', '../assets/images/foods/' + foto);
 			
@@ -182,6 +188,7 @@
 		$('#Edit').on('click', function() {
 
 			var id_menu = $('#id_menu').val();
+			var stok = $('#stok').val();
 			var nama = $('#nama').val();
 			var id_kategori = $('#id_kategori').val();
 			var harga = $('#harga').val();
@@ -331,9 +338,10 @@
 			var nama = $('#nama').val();
 			var id_kategori = $('#id_kategori').val();
 			var harga = $('#harga').val();
+			var stok = $('#stok').val();
 
 			if (
-				nama && harga
+				nama && harga && stok
 			) {
 				$("#form").submit();
 			}
@@ -416,20 +424,11 @@
 						columns: [1, 2, 3, 4]
 					}
 				}
-
-
-
-
-
 			],
 			language: {
 				searchPlaceholder: "Cari",
 
 			},
-			// columnDefs: [{
-			// 	targets: -1,
-			// 	visible: false
-			// }],
 			"lengthMenu": [
 				[10, 25, 50, 1000],
 				[10, 25, 50, 1000]

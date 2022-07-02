@@ -66,7 +66,7 @@ Aktor : {
                         }
                     }
 
-    }      
+}      
 	- Customer = {
         -Dine in {
             - Pesan makanan dine in 

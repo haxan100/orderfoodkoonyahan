@@ -33,11 +33,14 @@ class Data extends CI_Controller {
 			$fields[] = $row->nama_menu . '<br>';
 			$fields[] = $row->nama_kategori . '<br>';
 			$fields[] = $row->harga . '<br>';
+			$fields[] = $row->stok . '<br>';
 			$fields[] = '<img src="../assets/images/foods/'.$row->foto . '" id="image" alt="image"><br>';
 			$fields[] = '
 
 			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg"
-			 data-id_menu="' . $row->id_menu . '" data-nama_menu="' . $row->nama_menu . '" 
+			data-id_menu="' . $row->id_menu . '" 
+			data-stok="' . $row->stok . '" 
+			data-nama_menu="' . $row->nama_menu . '" 
 			data-id_kategori="' . $row->id_kategori . '" 
 			data-harga="' . $row->harga . '" 
 			data-foto="' . $row->foto . '" 
