@@ -294,7 +294,6 @@ $bu = base_url();
 	</div>
 </footer>
 </div>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script type="text/javascript" src="http://dansdigitalmedia.com/resto/frontend/js/tether.min.js"></script>
 <script type="text/javascript" src="http://dansdigitalmedia.com/resto/frontend/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="http://dansdigitalmedia.com/resto/frontend/js/owl.carousel.min.js"></script>

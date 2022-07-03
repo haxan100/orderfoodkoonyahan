@@ -14,7 +14,7 @@ class ProdukModel extends CI_Model {
 		$pages = ceil($total / $perHal);
 		// var_dump($page,$pages,$start,$length,$total);die;
 
-		$this->db->select("*")
+		$this->db->select("m.*,kategori.id_kategori,kategori.nama_kategori")
 			->from('menu m');
 			$this->db->join('kategori', 'kategori.id_kategori = m.id_kategori', 'left');
 			

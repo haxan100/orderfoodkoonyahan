@@ -182,10 +182,21 @@ class Data extends CI_Controller {
 
 
 			$tombolDetail = '
-				<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg"
+			<button class="btn  btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg"
 			 data-id_transaksi="' . $row->id_transaksi . '" data-kode_transaksi="' . $row->kode_transaksi . '" 
-			></i> Detail</button>
+			><i class="fa fa-info" aria-hidden="true"></i>
+			Detail</button>
 			';
+			$tombolPrint = '
+			<button class="btn btn-info btn_print"  
+				data-toggle="modal" 
+				data-target=".bs-example-modal-lg"
+			 	data-id_transaksi="' . $row->id_transaksi . '" 
+				data-kode_transaksi="' . $row->kode_transaksi . '" 
+			> <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+			Print</button>
+			';
+
 			$tombolHapus = '
 			<button class="btn btn-round btn-danger hapus" data-id_transaksi="' . $row->id_transaksi . '" 
 			>Hapus</button>           
@@ -196,7 +207,7 @@ class Data extends CI_Controller {
 
 			$fields[] = $row->harga_total . '<br>';
 			$fields[] = 'Selesai <br>';
-			$fields[] = $tombolDetail;
+			$fields[] = $tombolDetail . $tombolPrint;
 			$datatable['data'][] = $fields;
 		}
 

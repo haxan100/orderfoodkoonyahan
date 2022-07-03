@@ -28,17 +28,20 @@ $bu = base_url();
 						<div class="section-products">
 							<h2 class="section-title">Menu Kami</h2>
 							<div id="produkWrapper" class="row">
-								<div class="py-5">
 									<div class="container">
 										<div class="row hidden-md-up">
-											<div id="prodTampil">
+											<div>
+												<main  id="prodTampil">
+													
+
+												</main>
+												
 
 											</div>
 
 										</div>
 
 										<br>
-									</div>
 
 
 								</div>

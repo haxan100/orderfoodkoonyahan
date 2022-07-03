@@ -34,14 +34,19 @@
 							<div class="entry-content">
 								<div class="woocommerce">
 									<p class="woocommerce-thankyou-order-received">Terima Kasih, Order Anda Kami Terima.</p>
-									<ul class="woocommerce-thankyou-order-details order_details">
-										<li class="order">No. Order #:<strong><?= $Data->kode_transaksi ?></strong></li>
-										<li class="date">Tanggal :<strong><?= $Data->created_at ?></strong></li>
-
-										<li class="total">Total :<strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"></span><?= convert_to_rupiah($Data->harga_total) ?></span></strong></li>
-									</ul>
+									<div class="container">
+										
+										<div class="row">
+											<div class="col-md-8">
+												<li class="order">No. Order #:<strong><?= $Data->kode_transaksi ?></strong></li>
+												
+											</div>
+											<div class="col-md-4"><li class="date">Tanggal :<strong><?= $Data->created_at ?></strong></li></div>
+										</div>
+										
+									</div>
 									<div class="clear"></div>
-									<p>Silahkan Tunggu Pesananya :)</p>
+									<div class="clear"></div>
 									<h2>Order Detail</h2>
 									<table class="shop_table order_details">
 										<thead>
@@ -51,7 +56,6 @@
 											</tr>
 										</thead>
 										<tbody>
-
 											<?php
 											foreach ($getData as $k) {
 											?>
@@ -66,9 +70,6 @@
 											<?php
 											}
 											?>
-
-
-
 										</tbody>
 										<tfoot>
 											<tr>
@@ -96,6 +97,9 @@
 											</tr>
 										</tbody>
 									</table>
+									<a class="btn btn-primary btn-sm PrintKasir" href="<?= base_url() ?>Kasir/print/<?= $id ?>" role="button"> Print Kasir</a>
+									<a class="btn btn-primary btn-sm PrinThermal" href="<?= base_url() ?>Kasir/printPos/<?= $id ?>" role="button"> Print Thermal</a>
+									<a class="btn btn-primary btn-sm thermalPos " href="#" role="button"> Print Thermal Pos Langsung</a>
 								</div>
 							</div>
 						</div>
@@ -134,7 +138,6 @@
 		</footer>
 		</div>
 
-		<script data-cfasync="false" src="<?= $bu; ?>assets/kasir//cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 		<script type="text/javascript" src="<?= $bu; ?>assets/kasir/frontend\js\tether.min.js"></script>
 		<script type="text/javascript" src="<?= $bu; ?>assets/kasir/frontend\js\bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?= $bu; ?>assets/kasir/frontend\js\owl.carousel.min.js"></script>
@@ -144,5 +147,25 @@
 		<script type="text/javascript" src="<?= $bu; ?>assets/kasir/frontend\js\rupiah.js"></script>
 		<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 		</body>
+
+		<script>
+			$(document).ready(function() {
+				$('.thermalPos').click(function(e) {
+					e.preventDefault();
+					var uri = "<?= base_url() ?>Kasir/printContoh/<?= $id ?>"
+					$.ajax({
+						type: "get",
+						url: uri,
+						data: "data",
+						dataType: "json",
+						success: function(r) {
+							console.log(r);
+						}
+					});
+
+				});
+
+			});
+		</script>
 
 		</html>

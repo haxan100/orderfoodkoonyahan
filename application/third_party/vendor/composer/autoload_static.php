@@ -75,6 +75,7 @@ class ComposerStaticInit6b3c07c972aa8ad58d42178e42b8480a
         ),
         'M' => 
         array (
+            'Mike42\\' => 7,
             'Matrix\\' => 7,
         ),
         'C' => 
@@ -92,6 +93,11 @@ class ComposerStaticInit6b3c07c972aa8ad58d42178e42b8480a
         array (
             0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
         ),
+        'Mike42\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42',
+            1 => __DIR__ . '/..' . '/mike42/gfx-php/src/Mike42',
+        ),
         'Matrix\\' => 
         array (
             0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
@@ -102,11 +108,16 @@ class ComposerStaticInit6b3c07c972aa8ad58d42178e42b8480a
         ),
     );
 
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit6b3c07c972aa8ad58d42178e42b8480a::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit6b3c07c972aa8ad58d42178e42b8480a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit6b3c07c972aa8ad58d42178e42b8480a::$classMap;
 
         }, null, ClassLoader::class);
     }

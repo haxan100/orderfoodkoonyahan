@@ -1,8 +1,12 @@
 <?php
 $bu = base_url();
 ?>
-
+<style>
+	
+</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.19/sweetalert2.min.js" integrity="sha512-8EbzTdONoihxrKJqQUk1W6Z++PXPHexYlmSfizYg7eUqz8NgScujWLqqSdni6SRxx8wS4Z9CQu0eakmPLtq0HA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/fontawesome.min.js" integrity="sha512-5qbIAL4qJ/FSsWfIq5Pd0qbqoZpk5NcUVeAAREV2Li4EKzyJDEGlADHhHOSSCw0tHP7z3Q4hNHJXa81P92borQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <body class="woocommerce-cart">
 	<div id="page" class="hfeed site">
 
@@ -17,8 +21,8 @@ $bu = base_url();
 				<div id="primary" class="content-area">
 					<main id="main" class="site-main">
 						<div class="pizzaro-order-steps">
-							<ul>
-								<li class="cart">
+							<ul class="list-group list-group-horizontal list-group list-group-flush">
+								<li class="cart ">
 									<span class="step">1</span>Order Cart
 								</li>
 								<li class="checkout">
@@ -32,8 +36,8 @@ $bu = base_url();
 						<div id="post-8" class="post-8 page type-page status-publish hentry">
 							<div class="entry-content">
 								<div class="woocommerce">
-									<form>
-										<table class="shop_table shop_table_responsive cart">
+									<form class="table-responsive">
+										<table class="shop_table shop_table_responsive table cart container">
 											<thead>
 												<tr>
 													<th class="product-remove">&nbsp;</th>
@@ -45,6 +49,45 @@ $bu = base_url();
 												</tr>
 											</thead>
 											<tbody>
+												<?php foreach ($cart_content as $key => $k) {
+												?>
+
+													<tr class="cart_item c20ad4d76fe97759aa27a0c99bff6710">
+														<td class="product-thumbnail">
+															<a href="<?= $bu; ?>assets/kasir/menuorder/es-susu-cokelat">
+																<img width="180" height="180" src="<?= $bu; ?>assets/images/foods/<?= $k->foto ?>" alt="" />
+															</a>
+														</td>
+														<td class="product-name" data-title="Menu">
+															<a href="<?= $bu; ?>assets/kasir/menuorder/es-susu-cokelat"><?= $k->nama_menu ?></a>
+														</td>
+														<td class="product-price" data-title="Harga">
+															<span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"></span><?= convert_to_rupiah($k->harga) ?></span>
+														</td>
+														<td class="product-quantity" data-title="Jumlah">
+															<div class="qty-btn">
+																<div class="quantity">
+																	<input type="number" value="<?= $k->qty ?>" data-harga=<?= $k->harga ?> title="Qty" class="input-text qty text" data-rowid="c20ad4d76fe97759aa27a0c99bff6710" data-id=<?= $k->id_menu ?> />
+																</div>
+															</div>
+														</td>
+														<td class="product-subtotal" data-title="Sub Total">
+															<span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"></span><span id="TOTAL<?= $k->id_menu ?>"><?= convert_to_rupiah($k->total) ?></span></span>
+														</td>
+														
+														<td class="" data-title="Aksi">
+															<a href="#!" class="text-danger  cart_remove_item" data-id=<?= $k->id_menu ?>>
+																<i class="fas fa-trash fa-lg"></i>
+															</a>
+														</td>
+													</tr>
+
+												<?php
+												} ?>
+
+
+											</tbody>
+											<!-- <tbody>
 												<?php foreach ($cart_content as $key => $k) {
 												?>
 
@@ -79,7 +122,7 @@ $bu = base_url();
 												} ?>
 
 
-											</tbody>
+											</tbody> -->
 										</table>
 									</form>
 									<div class="cart-collaterals">
@@ -95,7 +138,7 @@ $bu = base_url();
 												<tr class="cart-subtotal">
 													<th>Total</th>
 													<td data-title="Total">
-														<span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">Rp. </span><span class="cart_total_format"><?= convert_to_rupiah($totalHarga) ?></span></span>
+														<span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"></span><span class="cart_total_format"><?= convert_to_rupiah($totalHarga) ?></span></span>
 													</td>
 												</tr>
 												<tr>
@@ -114,7 +157,7 @@ $bu = base_url();
 											</div>
 										</div>
 									</div>
-									<!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script> -->
+									<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 									<script type="text/javascript">
 										$('.cart_remove_item').each(function(index, el) {
@@ -199,23 +242,28 @@ $bu = base_url();
 												});
 											});
 										});
-										///////////////
+										
 										$('#update_cart').on('click', function(event) {
-											console.log(bu)
-											var url = bu + 'Cart/checkout';
-											window.location = url;
-											return false
+											var total = $('.cart_total_format').html();
+											var t =total.replace("Rp.", "");
+											var t = parseInt(t.replace(".", ""));
+											if(t==0||t==''){
+												Swal.fire(
+												  'Maaf',
+												  'Coba Lagi Nanti',
+												  'error'
+												)	
+											}else{
+												var url = bu + 'Cart/checkout';
+												window.location = url;
+												return false
+											}
 										});
-										///////////////
-
 										$('.qty').each(function(index, el) {
 											$(this).on('change keyup', function(event) {
 												event.preventDefault();
 												rowid = $(this).data('rowid');
 												var harga = $(this).data('harga');
-												// console.log(harga)
-												// return false
-												// id = $(this).data('id');
 												var id = $(this).data('id');
 												qty = $(this).val();
 												var SubTotalHarga = qty * harga;
@@ -228,9 +276,8 @@ $bu = base_url();
 																id,
 																qty
 															},
-														})
+													})
 														.done(function(res) {
-															console.log(res);
 															var totalHarga = res.harga;
 															$('#TOTAL' + id).html(convertToRupiah(SubTotalHarga));
 															$('.cart_total_format').html(convertToRupiah(totalHarga));
@@ -239,13 +286,12 @@ $bu = base_url();
 															console.log(error.responseText);
 														});
 												} else {
-													swal({
-														title: "Info",
-														text: "Jumlah harus lebih dari 0",
-														showConfirmButton: false,
-														type: "warning",
-														timer: 2000
-													});
+													Swal.fire(
+													  'Info',
+													  "Jumlah harus lebih dari 0",
+													  'error'
+													)
+													
 													$(this).val(qty).focus();
 												}
 											});
@@ -309,7 +355,6 @@ $bu = base_url();
 			</div>
 		</footer>
 	</div>
-	<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 	<script type="text/javascript" src="<?= $bu; ?>assets/kasir/frontend/js/tether.min.js"></script>
 	<script type="text/javascript" src="<?= $bu; ?>assets/kasir/frontend/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="<?= $bu; ?>assets/kasir/frontend/js/owl.carousel.min.js"></script>

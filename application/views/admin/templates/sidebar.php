@@ -70,6 +70,8 @@
             					<?php 	}
 
 
+
+
 								if ($role->seeting == 1 || $role->data_admin == 1 || $role->histori == 1) {
 								?>
             						<li><a><i class="fa fa-home"></i> Seting <span class="fa fa-chevron-down"></span></a>
@@ -97,6 +99,34 @@
             						</li>
 
             					<?php 	} ?>
+            					<li><a><i class="fa fa-home"></i> Laporan <span class="fa fa-chevron-down"></span></a>
+            						<ul class="nav child_menu">
+            							<?php
+										if ($role->data_admin == 1) {
+										?>
+            								<li><a href="<?= $bu ?>/Admin/master_admin">Master Admin</a></li>
+
+            							<?php 	}
+										if ($role->data_kasir == 1) {
+										?>
+
+            								<li><a href="<?= $bu ?>/Admin/master_kasir">Master Kasir</a></li>
+            							<?php 	}
+
+										if ($role->master_menu == 1) {
+										?>
+            								<!-- <li><a href="<?= $bu ?>/Admin/master_kategori">Master Kategori</a></li> -->
+            								<li><a href="<?= $bu ?>/Admin/master_item">Master Item</a></li>
+            							<?php 	}
+
+										if ($role->master_transaksi == 1) {
+										?>
+            								<li><a href="<?= $bu ?>/Admin/master_transaksi">Master Transaksi</a></li>
+            							<?php 	}
+										?>
+            						</ul>
+            					</li>
+
             					<!-- <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
             						<ul class="nav child_menu">
             							<li><a href="form.html">General Form</a></li>

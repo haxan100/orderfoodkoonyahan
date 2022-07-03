@@ -37,39 +37,8 @@ public function index()
 			$data['totalHarga'] = $d;
 		$data['cart_content']      = $cart;
 		$this->load->view('Kasir/headers',$data);
-		  $this->load->view('keranjang/all');
-		// $this->load->view('Kasir/footer', $data);
-
-		// $cart_content = $this->cart->contents();
-
-		// if ($cart_content) {
-		// 	$total_qty   = 0;
-		// 	$total_waktu = 0;
-		// 	foreach ($cart_content as $key => $value) {
-		// 		// var_dump($value['wak']);die;
-		// 		$waktu                          =1;
-		// 		$qty                            = 1;
-		// 		$cart_content[$key]['waktu']    = $waktu;
-		// 		$cart_content[$key]['qty']      = $qty;
-		// 		$cart_content[$key]['subtotal'] = number_format($value['price'] * $value['qty'], 0, '', ',');
-		// 		$total_qty += $qty;
-		// 		$total_waktu += $waktu;
-		// 	}
-
-		// 	$data['total_waktu']             = $total_waktu;
-		// 	$data['total_qty']               = $total_qty;
-		// 	$this->data['cart_count']        = count($cart_content);
-		// 	$this->data['total_waktu']       = $total_waktu;
-		// 	$this->data['total_qty']         = $total_qty;
-		// 	$this->data['cart_content']      = $cart_content;
-		// 	$this->data['cart_total']        = $this->cart->total();
-		// 	$this->data['cart_total_format'] = number_format($this->cart->total(), 0, '', '.');
-		// 	$this->data['resto_meja']        = $this->db->get('resto_meja')->result();
-		// 	$this->data['cart_total']        = $this->cart->total();
-		// 	$data['review_content']          = $this->parser->parse('keranjang/review_content.html', $this->data, true);
-		// 	// $this->template_front->display('front/checkout/review', $data);
-		// }
-	            
+		$this->load->view('keranjang/all');
+			            
 }
 public function checkout()
 {
@@ -263,6 +232,7 @@ public function selesai()
 			redirect('Kasir/Login', 'refresh');
 		}
 	$id = $_GET['id'];
+	$data['id'] = $id;
 	$data['Data'] = $this->SemuaModel->getDataTransaksiById($id);
 	$data['getData']=$this->SemuaModel->getDataFromDetTranAndPro($id);
 	$data['konten'] = $this->SemuaModel->getSeting();

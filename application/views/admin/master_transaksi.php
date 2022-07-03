@@ -203,56 +203,11 @@
 
 
 
-			$('body').on('click', '.hapus', function() {
+			$('body').on('click', '.btn_print', function() {
 
-				var id_admin = $(this).data('id_admin');
-				var nama = $(this).data('nama_admin');
-				Swal.fire({
-					title: 'Apakah Anda Yakin ?',
-					text: "Anda akan Menghapus Data: " + nama,
-					icon: 'warning',
-					showCancelButton: true,
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#d33',
-					confirmButtonText: 'Yes, delete it!'
-				}).then((result) => {
-
-					if (result.value) {
-						$.ajax({
-							url: bu + 'Admin/hapusAdmin',
-							dataType: 'json',
-							method: 'POST',
-							data: {
-								id_admin: id_admin
-							}
-						}).done(function(e) {
-							console.log(e);
-							Swal.fire(
-								'Deleted!',
-								e.message,
-								'success'
-							)
-							$('#modal-detail').modal('hide');
-							datatable.ajax.reload();
-
-
-
-						}).fail(function(e) {
-							console.log('gagal');
-							console.log(e);
-							var message = 'Terjadi Kesalahan. #JSMP01';
-							// notifikasi('#alertNotif', message, true);
-						});
-
-
-
-
-					}
-				})
-
-
-
-
+				var id_transaksi = $(this).data('id_transaksi');
+				window.location.href="<?= base_url() ?>Kasir/print/"+id_transaksi
+				
 			});
 
 			function notifikasi(sel, msg, err) {
@@ -320,35 +275,7 @@
 					// scrollTop: $(sel).offset().top - 75
 				}, 500);
 			}
-
-			$('body').on('click', '.btn_tambah', function() {
-				url_form = url_form_tambah;
-				console.log(url_form);
-				$('#Edit').hide();
-				$('#tambah_act').show();
-			});
-
-			$('#tambah_act').on('click', function() {
-
-				var nama = $('#nama').val();
-				var username = $('#username').val();
-				var password = $('#password').val();
-				var role = $('#role').val();
-
-				if (
-					nama && username && password && role
-				) {
-					$("#form").submit();
-				} else {
-					Swal.fire({
-						icon: 'error',
-						title: 'Oopssss...',
-						text: 'Mohon Isi Field yang di perlukan!',
-
-					})
-				}
-				// return false;
-			});
+			
 
 			var datatable = $('#datatable_data').DataTable({
 				dom: "Bfrltip",

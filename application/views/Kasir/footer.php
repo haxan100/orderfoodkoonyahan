@@ -1,6 +1,243 @@
 	<?php
 	$bu = base_url();
 	?>
+
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+		@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap');
+		@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+		:root {
+			--font1: 'Heebo', sans-serif;
+			--font2: 'Fira Sans Extra Condensed', sans-serif;
+			--font3: 'Roboto', sans-serif
+		}
+
+		body {
+			font-family: var(--font3);
+			background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)
+		}
+
+		h2 {
+			font-weight: 900
+		}
+
+		.container-fluid {
+			max-width: 1200px
+		}
+
+		.card {
+			background: #fff;
+			box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+			transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
+			border: 0;
+			border-radius: 1rem
+		}
+
+		.card-img,
+		.card-img-top {
+			border-top-left-radius: calc(1rem - 1px);
+			border-top-right-radius: calc(1rem - 1px)
+		}
+
+		.card h5 {
+			overflow: hidden;
+			height: 56px;
+			font-weight: 900;
+			font-size: 1rem
+		}
+
+		.card-img-top {
+			width: 100%;
+			max-height: 180px;
+			object-fit: contain;
+			padding: 30px
+		}
+
+		.card h2 {
+			font-size: 1rem
+		}
+
+		.card:hover {
+			transform: scale(1.05);
+			box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06)
+		}
+
+		.label-top {
+			position: absolute;
+			background-color: #8bc34a;
+			color: #fff;
+			top: 8px;
+			right: 8px;
+			padding: 5px 10px 5px 10px;
+			font-size: .7rem;
+			font-weight: 600;
+			border-radius: 3px;
+			text-transform: uppercase
+		}
+
+		.top-right {
+			position: absolute;
+			top: 24px;
+			left: 24px;
+			width: 90px;
+			height: 90px;
+			border-radius: 50%;
+			font-size: 1rem;
+			font-weight: 900;
+			background: #ff5722;
+			line-height: 90px;
+			text-align: center;
+			color: white
+		}
+
+		.top-right span {
+			display: inline-block;
+			vertical-align: middle
+		}
+
+		@media (max-width: 768px) {
+			.card-img-top {
+				max-height: 250px
+			}
+		}
+
+		.over-bg {
+			background: rgba(53, 53, 53, 0.85);
+			box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+			backdrop-filter: blur(0.0px);
+			-webkit-backdrop-filter: blur(0.0px);
+			border-radius: 10px
+		}
+
+		.btn {
+			font-size: 1rem;
+			font-weight: 500;
+			text-transform: uppercase;
+			padding: 5px 50px 5px 50px
+		}
+
+		.box .btn {
+			font-size: 1.5rem
+		}
+
+		@media (max-width: 1025px) {
+			.btn {
+				padding: 5px 40px 5px 40px
+			}
+		}
+
+		@media (max-width: 250px) {
+			.btn {
+				padding: 5px 30px 5px 30px
+			}
+		}
+
+		.btn-warning {
+			background: none #f7810a;
+			color: #ffffff;
+			fill: #ffffff;
+			border: none;
+			text-decoration: none;
+			outline: 0;
+			box-shadow: -1px 6px 19px rgba(247, 129, 10, 0.25);
+			border-radius: 100px
+		}
+
+		.btn-warning:hover {
+			background: none #ff962b;
+			color: #ffffff;
+			box-shadow: -1px 6px 13px rgba(255, 150, 43, 0.35)
+		}
+
+		.bg-success {
+			font-size: 1rem;
+			background-color: #f7810a !important
+		}
+
+		.bg-danger {
+			font-size: 1rem
+		}
+
+		.price-hp {
+			font-size: 1rem;
+			font-weight: 600;
+			color: darkgray
+		}
+
+		.amz-hp {
+			font-size: .7rem;
+			font-weight: 600;
+			color: darkgray
+		}
+
+		.fa-question-circle:before {
+			color: darkgray
+		}
+
+		.fa-plus:before {
+			color: darkgray
+		}
+
+		.box {
+			border-radius: 1rem;
+			background: #fff;
+			box-shadow: 0 6px 10px rgb(0 0 0 / 8%), 0 0 6px rgb(0 0 0 / 5%);
+			transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12)
+		}
+
+		.box-img {
+			max-width: 300px
+		}
+
+		.thumb-sec {
+			max-width: 300px
+		}
+
+		@media (max-width: 576px) {
+			.box-img {
+				max-width: 200px
+			}
+
+			.thumb-sec {
+				max-width: 200px
+			}
+		}
+
+		.inner-gallery {
+			width: 60px;
+			height: 60px;
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			margin: 1px;
+			display: inline-block;
+			overflow: hidden;
+			-o-object-fit: cover;
+			object-fit: cover
+		}
+
+		@media (max-width: 370px) {
+			.box .btn {
+				padding: 5px 40px 5px 40px;
+				font-size: 1rem
+			}
+		}
+
+		.disclaimer {
+			font-size: .9rem;
+			color: darkgray
+		}
+
+		.related h3 {
+			font-weight: 900
+		}
+
+		footer {
+			background: #212529;
+			height: 80px;
+			color: #fff
+		}
+	</style>
 	<footer id="colophon" class="site-footer footer-v1">
 		<div class="col-full">
 			<div class="footer-social-icons">
@@ -52,7 +289,12 @@
 		</div>
 	</footer>
 	</div>
-	<script data-cfasync="false" src="<?= $bu; ?>assets/kasir//cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+	<link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
+
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
 	<script type="text/javascript" src="<?= $bu; ?>assets/kasir/frontend\js\tether.min.js"></script>
 	<script type="text/javascript" src="<?= $bu; ?>assets/kasir/frontend\js\bootstrap.min.js"></script>
 	<script type="text/javascript" src="<?= $bu; ?>assets/kasir/frontend\js\owl.carousel.min.js"></script>
@@ -157,10 +399,6 @@
 			}).done(function(e) {
 				$('#prodTampil').html('');
 				if (e.status) {
-
-					// $('.cart_counts').html(e.total + " Item");
-					// $('.cart_total_formats').html("Rp " + e.total);
-
 					var berapa = e.data.data.length;
 					// console.log(e.data)
 					$.each(e.data.data, function(key, val) {
@@ -168,10 +406,8 @@
 					});
 
 					if (berapa >= 1) {
-						console.log(e.data.page)
 						generatePagination(e.data.page);
 						$('#pagination-wrapper').show();
-
 					} else {
 						$('#pagination-wrapper').hide();
 						var html = '<!-- no produk -->' +
@@ -179,7 +415,7 @@
 							'	<div class="text-center">' +
 							'		<div class="col biz-bg-w-2 biz-rad-10 p-3 mb-4">' +
 							'			<div class="text-center">' +
-							'				<span class="biz-text-17 biz-text-w-5 font-weight-bold">Belum Ada Produk Lelang Tersedia</span>' +
+							'				<span class="biz-text-17 biz-text-w-5 font-weight-bold">Belum Ada Produk Tersedia</span>' +
 							'			</div>' +
 							'		</div>' +
 							'		</div>' +
@@ -213,9 +449,9 @@
 			var max_page = 5;
 
 			if (e.halaman <= 1) {
-				pag += '<button disabled data-page="1" class="page-link button btn-outline-secondary px-2 rounded mr-2 pg border-0"><i class="fa fa-step-backward"></i></button> ';
+				// pag += '<button disabled data-page="1" class="page-link button btn-outline-secondary px-2 rounded mr-2 pg border-0"><i class="fa fa-step-backward"></i></button> ';
 			} else {
-				pag += '<button data-page="' + (e.halaman - 1) + '" class="page-link button btn-primary px-2 rounded mr-2 pg border-0"><i class="fa fa-arrow-left"></i></button> ';
+				// pag += '<button data-page="' + (e.halaman - 1) + '" class="page-link button btn-primary px-2 rounded mr-2 pg border-0"><i class="fa fa-arrow-left"></i></button> ';
 			}
 			// console.log(p.total_halaman <= max_page);
 			if (e.total_halaman <= max_page) {
@@ -242,49 +478,85 @@
 					pag += '.. ';
 				}
 			}
-
-			// if (e.halaman >= e.total_halaman) {
-			// 	pag += ' <button disabled data-page="' +  (e.halaman + 1)  + '" class="page-link button btn-outline-secondary px-2 rounded mr-2 pg border-0"><i class="fas fa-arrow-right"></i></button>';
-			// } else {
-			// 	pag += ' <button data-page="' + (e.halaman + 1) + '" class="page-link button btn-primary px-2 rounded mr-2 pg border-0"><i class="fas fa-arrow-right"></i></button>';
-			// }
 			$('#pagination-wrapper').html(pag);
 		}
-		// var total = 5;
-
-		// $('.cart_dropdown_container').html(total)
-		// $('.cart_count_footer').html(total);
-
 
 		function generateProduk(produk) {
-			// console.log(produk)
-			return `<div class="col-md-4 produkAwal"> <br>
-										<div class="product-outer">
-											<div class="product-inner">
-												<div class="product-image-wrapper">
-													<img src="<?= $bu; ?>assets/images/foods/${produk.foto}" class="img-responsive img-prod " alt="">
-													</a>
-												</div>
+			var nama_produk = produk.nama_menu
+			var panjang = nama_produk.length
+			if (panjang > 20) {
+				// var nama_produk = nama_produk.replace(/.(?=.{4})/g, '*')
+				var nama_produk = nama_produk
+			}
+			return `
+					<div class="container mt-4 col-md-4 col-lg-3"> 
+						<div class=""> 
+							<div class="col"> 
+								<div class="card h-100 product-outer"> 
+									<img src="<?= $bu; ?>assets/images/foods/${produk.foto}" class="img-responsive img-prod card-img-top product-outer " alt="">
 
-												<div class="product-content-wrapper">
-													<h3>${produk.nama_menu}</h3>
-														<div class="yith_wapo_groups_container">
-															<div class="ywapo_group_container ywapo_group_container_radio form-row form-row-wide " data-requested="1" data-type="radio" data-id="1" data-condition="">
+										<div class="card-body"> 
+											<div class="clearfix mb-3 centerig" style=" text-align: center;">
+												<span class="text-center price-hp">Rp. ${formatRupiah(produk.harga)}</span> 
+											</div> 
+												<h5 class="card-title centerig
+												" style="text-align: center!important;">${nama_produk}</h5> 
+											<div class="text-center my-4"> 
+											
+												<a data-id="${produk.id_menu}"  data-harga="${convertToRupiah(produk.harga)}" data-qty="1"  title="Order" type="button" class="btn-tawar btn-success btn-block btn-sm rounded text-center border add_to_cart_button">Order</a>
+											</div> 
+										</div> 
+								</div> 
+							</div> 
+							
+						</div> 
+					</div> 
 
-																<h3><span>${produk.nama_kategori}</span></h3>
-																<div class="ywapo_input_container ywapo_input_container_radio">
-																<span class="ywapo_label_price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">Rp. </span>${produk.harga}</span></span>
-																</div>
-															</div>
-														</div>
-													</a>
-													<div class="hover-area">
-														<a data-id="${produk.id_menu}"  data-harga="${convertToRupiah(produk.harga)}" data-qty="1"  title="Tambah ke Keranjang" type="button" class="btn-tawar button product_type_simple add_to_cart_button">Order</a>
-													</div></div>
-											</div>
-										</div>
-													</div>
-													`;
+			`;
+
+			// return `<div class="col-md-4 col-lg-3 produkAwal"> <br>
+			// 							<div class="product-outer">
+			// 								<div class="product-inner">
+			// 									<div class="product-image-wrapper">
+			// 										<img src="<?= $bu; ?>assets/images/foods/${produk.foto}" class="img-responsive img-prod " alt="">
+			// 										</a>
+			// 									</div>
+
+			// 									<div class="product-content-wrapper">
+			// 										<h8>${nama_produk}</h8>
+			// 											<div class="yith_wapo_groups_container">
+			// 												<div class="ywapo_group_container ywapo_group_container_radio form-row form-row-wide " data-requested="1" data-type="radio" data-id="1" data-condition="">
+
+			// 													<div class="ywapo_input_container ywapo_input_container_radio">
+			// 													<span class="ywapo_label_price"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">Rp. </span>${formatRupiah(produk.harga)}</span></span>
+			// 													</div>
+			// 												</div>
+			// 											</div>
+			// 										</a>
+			// 										<div class="hover-area">
+			// 											<a data-id="${produk.id_menu}"  data-harga="${convertToRupiah(produk.harga)}" data-qty="1"  title="Order" type="button" class="btn-tawar btn-success btn-block btn-sm rounded text-center border add_to_cart_button">Order</a>
+			// 										</div></div>
+			// 								</div>
+			// 							</div>
+			// 										</div>
+			// 										`;
+		}
+
+		function formatRupiah(angka, prefix) {
+			var number_string = angka.replace(/[^,\d]/g, '').toString(),
+				split = number_string.split(','),
+				sisa = split[0].length % 3,
+				rupiah = split[0].substr(0, sisa),
+				ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+			// tambahkan titik jika yang di input sudah menjadi angka ribuan
+			if (ribuan) {
+				separator = sisa ? '.' : '';
+				rupiah += separator + ribuan.join('.');
+			}
+
+			rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+			return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 		}
 		$('body').on('click', '.add_to_cart_button', function() {
 
@@ -293,7 +565,7 @@
 			// console.log(id_produk,harga)
 			// return false
 			var qty = 1;
-			$('.btn-tawar').html('<i class="fas fa-spinner fa-spin"></i>');
+			$('.btn-tawar').html('Tunggu...');
 			$('.btn-tawar').prop('disabled', true);
 			$.ajax({
 				type: "POST",
@@ -306,7 +578,6 @@
 				},
 			}).done(function(e) {
 				if (e.status) {
-					console.log(e);
 					Swal.fire(
 						':)',
 						e.msg,
@@ -337,7 +608,7 @@
 
 			}).always(function(e) {
 				setTimeout(() => {
-					$('.btn-tawar').html('Tambah Ke Keranjang');
+					$('.btn-tawar').html('Order');
 					$('.btn-tawar').prop('disabled', false);
 				}, 100);
 			});

@@ -79,6 +79,7 @@ $bu = base_url();
 							<span class="intro-text">Telp. dan Order ke</span>
 							<span id="city-phone-number-label" class="phone-number"><?= $konten[2]->isi ?></span>
 						</div>
+						
 						<ul class="site-header-cart-v2 menu">
 							<li class="cart-content ">
 								<a href="<?= $bu; ?>cart" title="Tampilkan Cart Order Anda">
@@ -87,8 +88,9 @@ $bu = base_url();
 								</a>
 								<ul class="sub-menu cart_dropdown_container">
 									<li>
-										<a href="" title="Tampilkan Cart Order Anda">
-											<span class="count cart_counts"><?= $totalcart ?> Item</span> <span class="amount cart_total_formats">Rp.<?= $totalHarga ?></span>
+										<a href="<?= $bu; ?>cart" title="Tampilkan Cart Order Anda">
+											<span class="count cart_counts"><?= $totalcart ?> Item</span> 
+											<span class="amount cart_total_formats">Rp.<?= $totalHarga ?></span>
 										</a>
 									</li>
 								</ul>
